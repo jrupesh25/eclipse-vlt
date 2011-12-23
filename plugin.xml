@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="org.eclipse.ui.commands">
+		<command defaultHandler="org.bitbucket.tsergey.vlt.handler.VltCommitHandler" id="org.bitbucket.tsergey.vlt.handler.VltCommitHandler" name="Commit"/>
+		<command defaultHandler="org.bitbucket.tsergey.vlt.handler.VltUpdateHandler" id="org.bitbucket.tsergey.vlt.handler.VltUpdateHandler" name="Update"/>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+			<menu label="VLT" id="vlt.main">
+				<!-- separator name="group1" visible="false"/ -->
+				<command commandId="org.bitbucket.tsergey.vlt.handler.VltCommitHandler"/>
+            	<command commandId="org.bitbucket.tsergey.vlt.handler.VltUpdateHandler"/>
+			</menu>
+		</menuContribution>
+	</extension>
+
+</plugin>

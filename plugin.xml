@@ -8,7 +8,6 @@
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
 			<menu label="VLT" id="vlt.main">
-				<!-- separator name="group1" visible="false"/ -->
 				<command commandId="org.bitbucket.tsergey.vlt.handler.VltCommitHandler"/>
             	<command commandId="org.bitbucket.tsergey.vlt.handler.VltUpdateHandler"/>
 			</menu>

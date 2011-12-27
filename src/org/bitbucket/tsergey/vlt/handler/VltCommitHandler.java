@@ -1,17 +1,18 @@
 package org.bitbucket.tsergey.vlt.handler;
 
+import org.bitbucket.tsergey.vlt.model.CommandBuilder;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
 public class VltCommitHandler extends BaseHandler {
 
 	@Override
-	public Object handle(ExecutionEvent arg0) throws ExecutionException {
-		// TODO Auto-generated method stub
-		
-		System.out.println("======== Commit ========");
-		
-		return null;
+	public Object handle(final String path, ExecutionEvent event) throws ExecutionException {
+		CommandBuilder builder = CommandBuilder.newInstance();
+		builder.setCommand("ci")
+			.setArgs(new String[]{"-v", "--force"})
+			.setPath(path);
+		return defaultHandlerAction(builder.buildCommand(), event);
 	}
 
 }

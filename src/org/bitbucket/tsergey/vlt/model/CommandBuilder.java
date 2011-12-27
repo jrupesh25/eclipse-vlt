@@ -31,6 +31,11 @@ public class CommandBuilder {
 		return this;
 	}
 
+	public CommandBuilder setOperationArgs(String[] operationArgs) {
+		command.setOperationArgs(operationArgs);
+		return this;
+	}
+
 	public Command buildCommand() {
 		if(StringUtils.isBlank(command.getCommand()) && StringUtils.isBlank(command.getPath())) {
 			throw new VaultException(VaultException.Type.COMMAND_CONSTRUCT_ERROR);
@@ -40,6 +45,7 @@ public class CommandBuilder {
 
 	public static class Command {
 
+		private String[] operationArgs;
 		private String command;
 		private String[] args;
 		private String path;
@@ -70,13 +76,23 @@ public class CommandBuilder {
 			this.path = path;
 		}
 	
+		public String[] getOperationArgs() {
+			return operationArgs;
+		}
+
+		private void setOperationArgs(String[] operationArgs) {
+			this.operationArgs = operationArgs;
+		}
+
 		public String[] toMainAppArgs() {
 			String[] result = new String[0];
+			result = (String[]) ArrayUtils.addAll(result, operationArgs);
 			result = (String[]) ArrayUtils.add(result, command);
 			result = (String[]) ArrayUtils.addAll(result, args);
 			result = (String[]) ArrayUtils.add(result, path);
 			return result;
 		}
+
 	}
 
 }

@@ -30,7 +30,7 @@ public class VaultException extends RuntimeException {
 
 	public enum Type {
 
-		COMMAND_CONSTRUCT_ERROR
+		COMMAND_CONSTRUCT_ERROR, JCR_ROOT_CONFIG_ERROR, CREDENTIALS_CONFIG_ERROR, NO_FILE_SELECTION_ERROR
 
 	}
 

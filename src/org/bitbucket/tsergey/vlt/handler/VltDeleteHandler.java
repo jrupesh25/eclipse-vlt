@@ -8,11 +8,19 @@ public class VltDeleteHandler extends BaseHandler {
 
 	@Override
 	public Object handle(final String path, ExecutionEvent event) throws ExecutionException {
-		CommandBuilder builder = CommandBuilder.newInstance();
-		builder.setCommand("delete")
+		CommandBuilder deleteBuilder = CommandBuilder.newInstance();
+		deleteBuilder.setCommand("delete")
 			.setArgs(new String[]{"-v", "--force"})
 			.setPath(path);
-		return defaultHandlerAction(builder.buildCommand(), event);
+		Object result = defaultHandlerAction(deleteBuilder.buildCommand(), event);
+		
+		CommandBuilder commitBuilder = CommandBuilder.newInstance();
+		commitBuilder.setCommand("ci")
+			.setArgs(new String[]{"-v", "--force"})
+			.setPath(path);
+		defaultHandlerAction(commitBuilder.buildCommand(), event);
+		
+		return result;
 	}
 
 }

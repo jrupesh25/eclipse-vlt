@@ -19,6 +19,14 @@
 	</extension>
 
 
+	<extension point="org.eclipse.ui.propertyPages">
+		<page objectClass="org.eclipse.core.resources.IProject" adaptable="true" name="Vault settings"
+			class="org.bitbucket.tsergey.vlt.preferences.GeneralPreferencesPage"
+			id="org.bitbucket.tsergey.vlt.propertyPage.project">
+		</page>
+	</extension>
+
+
 	<extension point="org.eclipse.ui.commands">
 		<command id="org.bitbucket.tsergey.vlt.command.VltCommitHandler" name="Commit"/>
 		<command id="org.bitbucket.tsergey.vlt.command.VltUpdateHandler" name="Update"/>

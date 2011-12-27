@@ -3,7 +3,6 @@ package org.bitbucket.tsergey.vlt.handler;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 
 import org.apache.commons.lang.StringUtils;
 import org.bitbucket.tsergey.vlt.model.CommandBuilder.Command;
@@ -80,7 +79,7 @@ public abstract class BaseHandler extends AbstractHandler {
 				@Override
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 					monitor.beginTask("Vlt " + command.getCommand(), 10);
-					System.out.println(Arrays.deepToString(command.toMainAppArgs()));
+					System.out.println("Ececuting command: \nvlt " + StringUtils.join(command.toMainAppArgs(), " "));
 					VaultFsApp.main(command.toMainAppArgs());
 					monitor.done();
 				}

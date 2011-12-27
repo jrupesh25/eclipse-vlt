@@ -20,15 +20,12 @@
 
 
 	<extension point="org.eclipse.ui.commands">
-		<command id="org.bitbucket.tsergey.vlt.command.VltStatusHandler" name="Status"/>
-		<command id="org.bitbucket.tsergey.vlt.command.VltInfoHandler" name="Info"/>
 		<command id="org.bitbucket.tsergey.vlt.command.VltCommitHandler" name="Commit"/>
 		<command id="org.bitbucket.tsergey.vlt.command.VltUpdateHandler" name="Update"/>
 		<command id="org.bitbucket.tsergey.vlt.command.VltRevertHandler" name="Revert"/>
 		<command id="org.bitbucket.tsergey.vlt.command.VltResolvedtHandler" name="Mark resolved"/>
 		<command id="org.bitbucket.tsergey.vlt.command.VltAddHandler" name="Add"/>
 		<command id="org.bitbucket.tsergey.vlt.command.VltDeleteHandler" name="Delete"/>
-		<command id="org.bitbucket.tsergey.vlt.command.VltDiffHandler" name="Diff"/>
 	</extension>
 
 
@@ -45,9 +42,6 @@
 				<command commandId="org.bitbucket.tsergey.vlt.command.VltDeleteHandler" />
 				<command commandId="org.bitbucket.tsergey.vlt.command.VltRevertHandler" />
 				<command commandId="org.bitbucket.tsergey.vlt.command.VltResolvedtHandler" />
-				<command commandId="org.bitbucket.tsergey.vlt.command.VltDiffHandler" />
-				<command commandId="org.bitbucket.tsergey.vlt.command.VltStatusHandler" />
-				<command commandId="org.bitbucket.tsergey.vlt.command.VltInfoHandler" />
 			</menu>
 		</menuContribution>
 	</extension>
@@ -57,12 +51,9 @@
 		<handler commandId="org.bitbucket.tsergey.vlt.command.VltCommitHandler" class="org.bitbucket.tsergey.vlt.handler.VltCommitHandler" />
         <handler commandId="org.bitbucket.tsergey.vlt.command.VltUpdateHandler" class="org.bitbucket.tsergey.vlt.handler.VltUpdateHandler" />
         <handler commandId="org.bitbucket.tsergey.vlt.command.VltRevertHandler" class="org.bitbucket.tsergey.vlt.handler.VltRevertHandler" />
-        <handler commandId="org.bitbucket.tsergey.vlt.command.VltStatusHandler" class="org.bitbucket.tsergey.vlt.handler.VltStatusHandler" />
-        <handler commandId="org.bitbucket.tsergey.vlt.command.VltInfoHandler" class="org.bitbucket.tsergey.vlt.handler.VltInfoHandler" />
         <handler commandId="org.bitbucket.tsergey.vlt.command.VltResolvedtHandler" class="org.bitbucket.tsergey.vlt.handler.VltResolvedtHandler" />
         <handler commandId="org.bitbucket.tsergey.vlt.command.VltAddHandler" class="org.bitbucket.tsergey.vlt.handler.VltAddHandler" />
         <handler commandId="org.bitbucket.tsergey.vlt.command.VltDeleteHandler" class="org.bitbucket.tsergey.vlt.handler.VltDeleteHandler" />
-        <handler commandId="org.bitbucket.tsergey.vlt.command.VltDiffHandler" class="org.bitbucket.tsergey.vlt.handler.VltDiffHandler" />
 	</extension>
 
 

@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.bitbucket.tsergey.vlt.feature"
-      label="Feature"
+      label="org.bitbucket.tsergey.vlt"
       version="1.0.0.qualifier"
       provider-name="s.timofiychuk@gmail.com">
 
-   <license url="">
-      
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Feature Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
    </license>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.jface.text" version="3.7.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core" version="3.7.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.7.100" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.lang" version="2.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.bitbucket.tsergey.vlt.libs" version="1.0.0" match="greaterOrEqual"/>
+   </requires>
 
    <plugin
          id="org.bitbucket.tsergey.vlt"

@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <category-def name="org.bitbucket.tsergey.vlt.category" label="Vault eclipse plugin"/>
+   <feature url="features/org.bitbucket.tsergey.vlt.feature_1.0.0.qualifier.jar" id="org.bitbucket.tsergey.vlt.feature" version="1.0.0.qualifier">
+      <category name="org.bitbucket.tsergey.vlt"/>
+   </feature>
+   <category-def name="org.bitbucket.tsergey.vlt" label="org.bitbucket.tsergey.vlt">
+      <description>
+         org.bitbucket.tsergey.vlt
+      </description>
+   </category-def>
 </site>

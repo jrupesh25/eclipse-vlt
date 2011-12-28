@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.bitbucket.tsergey.vlt.feature"
+      label="Feature"
+      version="1.0.0.qualifier"
+      provider-name="s.timofiychuk@gmail.com">
+
+   <license url="">
+      
+   </license>
+
+   <plugin
+         id="org.bitbucket.tsergey.vlt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.bitbucket.tsergey.vlt.libs"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>

@@ -1,5 +1,8 @@
 package org.bitbucket.tsergey.vlt;
 
+import java.io.PrintStream;
+
+import org.bitbucket.tsergey.vlt.utils.ConsoleUtils;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -23,6 +26,8 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		// TODO find out a way how to correctly redirect vlt out to the eclipse console.
+		System.setOut(new PrintStream(ConsoleUtils.findConsole(Activator.PLUGIN_ID).newOutputStream()));
 	}
 
 	public void stop(BundleContext context) throws Exception {

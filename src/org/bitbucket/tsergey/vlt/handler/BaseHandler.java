@@ -1,7 +1,5 @@
 package org.bitbucket.tsergey.vlt.handler;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,14 +14,11 @@ import org.bitbucket.tsergey.vlt.utils.ResourceUtils;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.statushandlers.StatusManager;
 
@@ -35,9 +30,10 @@ public abstract class BaseHandler extends AbstractHandler {
 	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		String path = initPath(event);
 		Object result = null;
 		try {
+			String jcrRoot = ResourceUtils.initJCRRoot();
+			String path = ResourceUtils.retrieveSelectedPath(event, jcrRoot);
 			result = handle(path, event);
 		} catch(VaultException e) {
 			Type type = e.getType();
@@ -65,13 +61,12 @@ public abstract class BaseHandler extends AbstractHandler {
 		ProgressMonitorDialog dialog = new ProgressMonitorDialog(HandlerUtil.getActiveShell(event).getShell());
 		
 		try {
-			dialog.run(true, true, new IRunnableWithProgress() {
+			dialog.run(true, false, new IRunnableWithProgress() {
 				
 				@Override
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 					monitor.beginTask(Messages.get(Messages.TITLE_OPERATION + cmd.getCommand()), 10);
 					monitor.worked(5);
-					System.out.println("Ececuting command: \nvlt " + StringUtils.join(cmd.toMainAppArgs(), " "));
 					VaultFsApp.main(cmd.toMainAppArgs());
 					monitor.done();
 				}
@@ -82,52 +77,6 @@ public abstract class BaseHandler extends AbstractHandler {
 			e.printStackTrace();
 		}
 		return Boolean.TRUE;
-	}
-
-	private String initPath(ExecutionEvent event) {
-		String path = StringUtils.EMPTY;
-		ISelection selectedObject = HandlerUtil.getCurrentSelection(event);
-		IFile file = null;
-		if(selectedObject != null) {
-			if(selectedObject instanceof IStructuredSelection) {
-				Object firstSelectedObject = ((IStructuredSelection)selectedObject).getFirstElement();
-				file = ResourceUtils.getResource(firstSelectedObject);
-			} else {
-				file = ResourceUtils.getResource(selectedObject);
-			}
-		}
-		if(file == null) {
-			file = ResourceUtils.getResourceFromEditor();
-		}
-		if(file != null) {
-			try {
-				path = file.getLocation().toFile().getCanonicalPath();
-			} catch (IOException e) {
-				path = StringUtils.EMPTY;
-			}
-		}
-		
-		if(StringUtils.isBlank(path)) {
-			throw new VaultException(Type.NO_FILE_SELECTION_ERROR, Messages.get(Messages.ERRORS_FILE_NOT_SELECTED));
-		}
-		
-		// change working directory
-		String jcrRoot = Activator.getDefault().getPreferenceStore().getString(GeneralPreferencesPage.JCR_ROOT_PATH);
-		File jcrRootFile = new File(jcrRoot);
-		try {
-			jcrRoot = jcrRootFile.getCanonicalPath();
-		} catch (IOException e) {
-			throw new VaultException(Type.JCR_ROOT_CONFIG_ERROR, Messages.get(Messages.ERRORS_JCR_ROOT_CONFIG), e);
-		}
-		if(StringUtils.isBlank(jcrRoot)) {
-			throw new VaultException(Type.JCR_ROOT_CONFIG_ERROR, Messages.get(Messages.ERRORS_JCR_ROOT_CONFIG));
-		}
-		System.setProperty("user.dir", jcrRoot);
-		
-		if(StringUtils.contains(path, jcrRoot)) {
-			path = StringUtils.substring(path, StringUtils.length(jcrRoot) + 1);
-		}
-		return path;
 	}
 
 }

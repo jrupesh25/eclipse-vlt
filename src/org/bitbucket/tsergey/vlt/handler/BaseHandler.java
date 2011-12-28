@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bitbucket.tsergey.vlt.Activator;
 import org.bitbucket.tsergey.vlt.exception.VaultException;
 import org.bitbucket.tsergey.vlt.exception.VaultException.Type;
+import org.bitbucket.tsergey.vlt.messages.Messages;
 import org.bitbucket.tsergey.vlt.model.CommandBuilder;
 import org.bitbucket.tsergey.vlt.model.CommandBuilder.Command;
 import org.bitbucket.tsergey.vlt.preferences.GeneralPreferencesPage;
@@ -52,7 +52,7 @@ public abstract class BaseHandler extends AbstractHandler {
 		String upass = Activator.getDefault().getPreferenceStore().getString(GeneralPreferencesPage.USER_PASS);
 		
 		if(StringUtils.isBlank(upass) && StringUtils.isBlank(uname)) {
-			throw new VaultException(VaultException.Type.CREDENTIALS_CONFIG_ERROR, "The vault credentials is not configured");
+			throw new VaultException(Type.CREDENTIALS_CONFIG_ERROR, Messages.get(Messages.ERRORS_CREDENTIALS_CONFIG));
 		}
 		String[] credentials = new String[]{"--credentials", uname + ":" + upass};
 		CommandBuilder builder = CommandBuilder.newInstance();
@@ -69,7 +69,8 @@ public abstract class BaseHandler extends AbstractHandler {
 				
 				@Override
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-					monitor.beginTask("Vlt " + cmd.getCommand(), 10);
+					monitor.beginTask(Messages.get(Messages.TITLE_OPERATION + cmd.getCommand()), 10);
+					monitor.worked(5);
 					System.out.println("Ececuting command: \nvlt " + StringUtils.join(cmd.toMainAppArgs(), " "));
 					VaultFsApp.main(cmd.toMainAppArgs());
 					monitor.done();
@@ -107,22 +108,20 @@ public abstract class BaseHandler extends AbstractHandler {
 		}
 		
 		if(StringUtils.isBlank(path)) {
-			throw new VaultException(VaultException.Type.NO_FILE_SELECTION_ERROR, "The vault JCR_ROOT is not configured");
+			throw new VaultException(Type.NO_FILE_SELECTION_ERROR, Messages.get(Messages.ERRORS_FILE_NOT_SELECTED));
 		}
 		
-		// move to the jcr_root
-		// TODO read jcrRoot from the project settings
+		// change working directory
 		String jcrRoot = Activator.getDefault().getPreferenceStore().getString(GeneralPreferencesPage.JCR_ROOT_PATH);
 		File jcrRootFile = new File(jcrRoot);
 		try {
 			jcrRoot = jcrRootFile.getCanonicalPath();
 		} catch (IOException e) {
-			throw new VaultException(VaultException.Type.JCR_ROOT_CONFIG_ERROR, "The vault JCR_ROOT is not configured", e);
+			throw new VaultException(Type.JCR_ROOT_CONFIG_ERROR, Messages.get(Messages.ERRORS_JCR_ROOT_CONFIG), e);
 		}
 		if(StringUtils.isBlank(jcrRoot)) {
-			throw new VaultException(VaultException.Type.JCR_ROOT_CONFIG_ERROR, "The vault JCR_ROOT is not configured");
+			throw new VaultException(Type.JCR_ROOT_CONFIG_ERROR, Messages.get(Messages.ERRORS_JCR_ROOT_CONFIG));
 		}
-		System.out.println("JCR_ROOT path=" + jcrRoot);
 		System.setProperty("user.dir", jcrRoot);
 		
 		if(StringUtils.contains(path, jcrRoot)) {

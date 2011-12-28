@@ -20,7 +20,7 @@
 
 
 	<extension point="org.eclipse.ui.propertyPages">
-		<page objectClass="org.eclipse.core.resources.IProject" adaptable="true" name="Vault settings"
+		<page objectClass="org.eclipse.core.resources.IProject" adaptable="true" name="%vlt_properties_item"
 			class="org.bitbucket.tsergey.vlt.preferences.GeneralPreferencesPage"
 			id="org.bitbucket.tsergey.vlt.propertyPage.project">
 		</page>
@@ -28,18 +28,18 @@
 
 
 	<extension point="org.eclipse.ui.commands">
-		<command id="org.bitbucket.tsergey.vlt.command.VltCommitHandler" name="Commit"/>
-		<command id="org.bitbucket.tsergey.vlt.command.VltUpdateHandler" name="Update"/>
-		<command id="org.bitbucket.tsergey.vlt.command.VltRevertHandler" name="Revert"/>
-		<command id="org.bitbucket.tsergey.vlt.command.VltResolvedtHandler" name="Mark resolved"/>
-		<command id="org.bitbucket.tsergey.vlt.command.VltAddHandler" name="Add"/>
-		<command id="org.bitbucket.tsergey.vlt.command.VltDeleteHandler" name="Delete"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltCommitHandler" name="%vlt_commit_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltUpdateHandler" name="%vlt_update_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltRevertHandler" name="%vlt_revert_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltResolvedtHandler" name="%vlt_resolved_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltAddHandler" name="%vlt_add_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltDeleteHandler" name="%vlt_delete_menu_item"/>
 	</extension>
 
 
 	<extension point="org.eclipse.ui.menus">
 		<menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-			<menu label="VLT" id="vlt.main">
+			<menu label="%vlt_main_menu" id="vlt.main">
             	<command commandId="org.bitbucket.tsergey.vlt.command.VltUpdateHandler" />
 				<command commandId="org.bitbucket.tsergey.vlt.command.VltCommitHandler">
 					<!-- visibleWhen>

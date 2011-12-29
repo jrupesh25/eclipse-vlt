@@ -14,10 +14,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -109,13 +112,12 @@ public class ResourceUtils {
 		String path = StringUtils.EMPTY;
 		ISelection selectedObject = getActiveWindow().getSelectionService().getSelection();
 		if(selectedObject != null) {
-			if(selectedObject instanceof IStructuredSelection) {
-				path = getResourcePath(selectedObject);
-			} else {
+			if(selectedObject instanceof ITextSelection) {
 				path = getResourcePathFromEditor();
+			} else if(selectedObject instanceof IStructuredSelection) {
+				path = getResourcePath(((IStructuredSelection) selectedObject).getFirstElement());
 			}
 		}
-		
 		if(StringUtils.isBlank(path)) {
 			path = ResourceUtils.getResourcePathFromEditor();
 		}

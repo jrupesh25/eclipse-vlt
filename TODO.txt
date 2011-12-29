@@ -1,0 +1,8 @@
+1. Menu visibility
+2. Group commit (if you select more then one file in tree view)
+3. Progress dialog:
+	a) add background button
+	b) implement cancel button
+4. Correct error message on any operation with files that is not in the jcr_root 
+5. Implement vlt output to the eclipse console.
+6. Add diff view and other vlt operations.

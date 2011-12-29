@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+
+	<extension point="org.eclipse.core.expressions.definitions">
+		<definition id="org.bitbucket.tsergey.vlt.definition.vlt.editor">
+			<with variable="activeEditorId">
+				<equals value="org.eclipse.ui.examples.contributions.editor" />
+			</with>
+		</definition>
+        <definition id="org.bitbucket.tsergey.vlt.definition.vlt.tree">
+            <iterate ifEmpty="false" operator="or">
+            	<or>
+                	<adapt type="org.eclipse.core.runtime.IAdaptable" />
+                </or>
+            </iterate>
+        </definition>
+	</extension>
+
+
+	<extension point="org.eclipse.ui.propertyPages">
+		<page objectClass="org.eclipse.core.resources.IProject" adaptable="true" name="%vlt_properties_item"
+			class="org.bitbucket.tsergey.vlt.preferences.GeneralPreferencesPage"
+			id="org.bitbucket.tsergey.vlt.propertyPage.project">
+		</page>
+	</extension>
+
+
+	<extension point="org.eclipse.ui.commands">
+		<command id="org.bitbucket.tsergey.vlt.command.VltCommitHandler" name="%vlt_commit_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltUpdateHandler" name="%vlt_update_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltRevertHandler" name="%vlt_revert_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltResolvedtHandler" name="%vlt_resolved_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltAddHandler" name="%vlt_add_menu_item"/>
+		<command id="org.bitbucket.tsergey.vlt.command.VltDeleteHandler" name="%vlt_delete_menu_item"/>
+	</extension>
+
+
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+			<menu label="%vlt_main_menu" id="vlt.main">
+            	<command commandId="org.bitbucket.tsergey.vlt.command.VltUpdateHandler" />
+				<command commandId="org.bitbucket.tsergey.vlt.command.VltCommitHandler">
+					<!-- visibleWhen>
+                        <reference definitionId="org.bitbucket.tsergey.vlt.definition.vlt.editor" />
+                    </visibleWhen -->
+				</command>
+				<command commandId="org.bitbucket.tsergey.vlt.command.VltAddHandler" />
+				<command commandId="org.bitbucket.tsergey.vlt.command.VltDeleteHandler" />
+				<command commandId="org.bitbucket.tsergey.vlt.command.VltRevertHandler" />
+				<command commandId="org.bitbucket.tsergey.vlt.command.VltResolvedtHandler" />
+			</menu>
+		</menuContribution>
+	</extension>
+
+
+	<extension point="org.eclipse.ui.handlers">
+		<handler commandId="org.bitbucket.tsergey.vlt.command.VltCommitHandler" class="org.bitbucket.tsergey.vlt.handler.VltCommitHandler" />
+        <handler commandId="org.bitbucket.tsergey.vlt.command.VltUpdateHandler" class="org.bitbucket.tsergey.vlt.handler.VltUpdateHandler" />
+        <handler commandId="org.bitbucket.tsergey.vlt.command.VltRevertHandler" class="org.bitbucket.tsergey.vlt.handler.VltRevertHandler" />
+        <handler commandId="org.bitbucket.tsergey.vlt.command.VltResolvedtHandler" class="org.bitbucket.tsergey.vlt.handler.VltResolvedtHandler" />
+        <handler commandId="org.bitbucket.tsergey.vlt.command.VltAddHandler" class="org.bitbucket.tsergey.vlt.handler.VltAddHandler" />
+        <handler commandId="org.bitbucket.tsergey.vlt.command.VltDeleteHandler" class="org.bitbucket.tsergey.vlt.handler.VltDeleteHandler" />
+	</extension>
+
+
+</plugin>

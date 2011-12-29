@@ -1,2 +1,6 @@
 http://repo.adobe.com/archiva/index.action
 http://jackrabbit.apache.org/downloads.html
+
+
+Day CQ License:
+http://dev.day.com/docs/v5_1/html-resources/cq5_guide_licenses/cq5_guide_licenses.html

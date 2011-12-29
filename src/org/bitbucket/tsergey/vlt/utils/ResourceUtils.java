@@ -21,7 +21,6 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.ide.ResourceUtil;
 
 public class ResourceUtils {
@@ -50,7 +49,7 @@ public class ResourceUtils {
 		return path;
 	}
 
-	public static <M> M adaptResource(Object resource, Class<M> type) {
+	private static <M> M adaptResource(Object resource, Class<M> type) {
 		M result = (M) Platform.getAdapterManager().getAdapter(resource, type);
 		if(result == null) {
 			if(resource instanceof IAdaptable) {
@@ -108,16 +107,16 @@ public class ResourceUtils {
 	
 	public static String retrieveSelectedPath(ExecutionEvent event, String jcrRoot) {
 		String path = StringUtils.EMPTY;
-		ISelection selectedObject = HandlerUtil.getCurrentSelection(event);
+		ISelection selectedObject = getActiveWindow().getSelectionService().getSelection();
 		if(selectedObject != null) {
 			if(selectedObject instanceof IStructuredSelection) {
-				Object firstSelectedObject = ((IStructuredSelection)selectedObject).getFirstElement();
-				path = ResourceUtils.getResourcePath(firstSelectedObject);
+				path = getResourcePath(selectedObject);
 			} else {
-				path = ResourceUtils.getResourcePath(selectedObject);
+				path = getResourcePathFromEditor();
 			}
 		}
-		if(path == null) {
+		
+		if(StringUtils.isBlank(path)) {
 			path = ResourceUtils.getResourcePathFromEditor();
 		}
 		
